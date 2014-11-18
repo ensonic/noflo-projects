@@ -1,0 +1,53 @@
+{
+    "properties": {
+        "name": "main",
+        "environment": {
+            "type": "noflo-browser"
+        }
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "math/Random_kja0q": {
+            "component": "math/Random",
+            "metadata": {
+                "label": "math/Random",
+                "x": 468,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Multiply_ckzys": {
+            "component": "math/Multiply",
+            "metadata": {
+                "label": "math/Multiply",
+                "x": 612,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "math/Random_kja0q",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Multiply_ckzys",
+                "port": "multiplicand"
+            },
+            "metadata": {}
+        },
+        {
+            "data": 10,
+            "tgt": {
+                "process": "math/Multiply_ckzys",
+                "port": "multiplier"
+            }
+        }
+    ]
+}
