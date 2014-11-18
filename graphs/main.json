@@ -3,7 +3,7 @@
         "name": "number game",
         "environment": {
             "type": "noflo-browser",
-            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n</div>"
+            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  Guess a number between 1-10<br>\n  <input id=\"guess\" type=\"text\" min=\"1\" max=\"110\" value=\"\"></input><br>\n  <div id=\"reply\"></div>\n</div>"
         },
         "description": "Guess a number",
         "icon": ""
@@ -16,7 +16,7 @@
             "component": "math/Random",
             "metadata": {
                 "label": "math/Random",
-                "x": 468,
+                "x": 288,
                 "y": 180,
                 "width": 72,
                 "height": 72
@@ -26,8 +26,58 @@
             "component": "math/Multiply",
             "metadata": {
                 "label": "math/Multiply",
-                "x": 612,
+                "x": 432,
                 "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "user guess": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "user guess",
+                "x": 288,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "change": {
+            "component": "interaction/ListenChange",
+            "metadata": {
+                "label": "change",
+                "x": 432,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Repeat_9sqib": {
+            "component": "core/Repeat",
+            "metadata": {
+                "label": "core/Repeat",
+                "x": 576,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Compare_np714": {
+            "component": "math/Compare",
+            "metadata": {
+                "label": "math/Compare",
+                "x": 792,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Compare_nh7y7": {
+            "component": "math/Compare",
+            "metadata": {
+                "label": "math/Compare",
+                "x": 792,
+                "y": 144,
                 "width": 72,
                 "height": 72
             }
@@ -46,10 +96,101 @@
             "metadata": {}
         },
         {
+            "src": {
+                "process": "user guess",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "change",
+                "port": "element"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Multiply_ckzys",
+                "port": "product"
+            },
+            "tgt": {
+                "process": "core/Repeat_9sqib",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Repeat_9sqib",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Compare_np714",
+                "port": "comparison"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "change",
+                "port": "value"
+            },
+            "tgt": {
+                "process": "math/Compare_np714",
+                "port": "value"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Repeat_9sqib",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "comparison"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "change",
+                "port": "value"
+            },
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
             "data": 10,
             "tgt": {
                 "process": "math/Multiply_ckzys",
                 "port": "multiplier"
+            }
+        },
+        {
+            "data": "#guess",
+            "tgt": {
+                "process": "user guess",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "=",
+            "tgt": {
+                "process": "math/Compare_np714",
+                "port": "operator"
+            }
+        },
+        {
+            "data": "<",
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "operator"
             }
         }
     ]
