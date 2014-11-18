@@ -66,7 +66,7 @@
             "component": "math/Compare",
             "metadata": {
                 "label": "math/Compare",
-                "x": 792,
+                "x": 756,
                 "y": 0,
                 "width": 72,
                 "height": 72
@@ -76,8 +76,68 @@
             "component": "math/Compare",
             "metadata": {
                 "label": "math/Compare",
-                "x": 792,
+                "x": 756,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/WriteHtml_71nl6": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "dom/WriteHtml",
+                "x": 1296,
                 "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_ca2ch": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": 1188,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_ikxjn": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "core/Kick",
+                "x": 1008,
+                "y": -36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_qpf10": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "core/Kick",
+                "x": 1008,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Merge_fzutk": {
+            "component": "core/Merge",
+            "metadata": {
+                "label": "core/Merge",
+                "x": 1152,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_a12f6": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "core/Kick",
+                "x": 1008,
+                "y": 252,
                 "width": 72,
                 "height": 72
             }
@@ -141,25 +201,115 @@
         },
         {
             "src": {
+                "process": "dom/GetElement_ca2ch",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_71nl6",
+                "port": "container"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_np714",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "core/Kick_ikxjn",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_nh7y7",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "core/Kick_qpf10",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Kick_ikxjn",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_fzutk",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "core/Kick_qpf10",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_fzutk",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_fzutk",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_71nl6",
+                "port": "html"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Kick_a12f6",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_fzutk",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_nh7y7",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "core/Kick_a12f6",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_np714",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "value"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
                 "process": "core/Repeat_9sqib",
                 "port": "out"
             },
             "tgt": {
                 "process": "math/Compare_nh7y7",
                 "port": "comparison"
-            },
-            "metadata": {
-                "route": 0
-            }
-        },
-        {
-            "src": {
-                "process": "change",
-                "port": "value"
-            },
-            "tgt": {
-                "process": "math/Compare_nh7y7",
-                "port": "value"
             },
             "metadata": {
                 "route": 0
@@ -180,17 +330,45 @@
             }
         },
         {
-            "data": "=",
+            "data": "<",
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "operator"
+            }
+        },
+        {
+            "data": "==",
             "tgt": {
                 "process": "math/Compare_np714",
                 "port": "operator"
             }
         },
         {
-            "data": "<",
+            "data": "#reply",
             "tgt": {
-                "process": "math/Compare_nh7y7",
-                "port": "operator"
+                "process": "dom/GetElement_ca2ch",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "Wow, that is right!",
+            "tgt": {
+                "process": "core/Kick_ikxjn",
+                "port": "data"
+            }
+        },
+        {
+            "data": "The value is too small.",
+            "tgt": {
+                "process": "core/Kick_qpf10",
+                "port": "data"
+            }
+        },
+        {
+            "data": "The value is too large.",
+            "tgt": {
+                "process": "core/Kick_a12f6",
+                "port": "data"
             }
         }
     ]
