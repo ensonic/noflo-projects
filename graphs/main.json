@@ -3,7 +3,7 @@
         "name": "number game",
         "environment": {
             "type": "noflo-browser",
-            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  <center>\n    <p>Guess a number between 1-10</p>\n    <input id=\"guess\" type=\"text\" min=\"1\" max=\"110\" value=\"\"></input><br>\n    <p><div id=\"reply\"></div></p>\n  </center>\n</div>"
+            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  <center>\n    <p>Guess a number between 1-10</p>\n    <input id=\"guess\" type=\"text\" min=\"1\" max=\"10\" value=\"?\" autofocus=true></input><br>\n    <p><div id=\"reply\"></div></p>\n    <button id=\"start\">New Game</button>\n  </center>\n</div>"
         },
         "description": "Guess a number",
         "icon": ""
@@ -12,51 +12,65 @@
     "outports": {},
     "groups": [
         {
-            "name": "input",
+            "name": "logic",
             "nodes": [
-                "change",
-                "math/Floor_njvuc",
-                "user guess"
+                "Win",
+                "TooLarge",
+                "TooSmall",
+                "math/Compare_nh7y7",
+                "math/Compare_np714"
             ],
             "metadata": {
-                "description": "Get user guess"
+                "description": "handle input and generate reply"
             }
         },
         {
             "name": "random",
             "nodes": [
                 "core/Repeat_9sqib",
-                "loadBang",
                 "math/Floor_sv4a7",
                 "math/Multiply_ckzys",
                 "math/Random_kja0q"
             ],
             "metadata": {
-                "description": "Generate random number"
+                "description": "Generate a random number"
             }
         },
         {
             "name": "output",
             "nodes": [
+                "core/Kick_nnewr",
+                "core/Merge_q5sla",
                 "dom/GetElement_ca2ch",
                 "dom/WriteHtml_71nl6"
             ],
             "metadata": {
-                "description": "Game feedback"
+                "description": "Handle replies"
             }
         },
         {
-            "name": "logic",
+            "name": "Init",
             "nodes": [
-                "core/Kick_a12f6",
-                "core/Kick_ikxjn",
-                "core/Kick_qpf10",
-                "core/Merge_fzutk",
-                "math/Compare_nh7y7",
-                "math/Compare_np714"
+                "core/Merge_7b9qu",
+                "dom/GetElement_5rdly",
+                "interaction/ListenMouse_xile2",
+                "loadBang"
             ],
             "metadata": {
-                "description": "Handle user input and do reply"
+                "description": "Start a game"
+            }
+        },
+        {
+            "name": "input",
+            "nodes": [
+                "change",
+                "core/Kick_en2e",
+                "dom/GetElement_zstrw",
+                "dom/SetAttribute_eiofl",
+                "math/Floor_njvuc"
+            ],
+            "metadata": {
+                "description": "Handle user guesses"
             }
         }
     ],
@@ -81,22 +95,12 @@
                 "height": 72
             }
         },
-        "user guess": {
-            "component": "dom/GetElement",
-            "metadata": {
-                "label": "user guess",
-                "x": 216,
-                "y": 0,
-                "width": 72,
-                "height": 72
-            }
-        },
         "change": {
             "component": "interaction/ListenChange",
             "metadata": {
                 "label": "change",
-                "x": 324,
-                "y": 0,
+                "x": 432,
+                "y": -36,
                 "width": 72,
                 "height": 72
             }
@@ -105,8 +109,8 @@
             "component": "core/Repeat",
             "metadata": {
                 "label": "core/Repeat",
-                "x": 576,
-                "y": 180,
+                "x": 540,
+                "y": 216,
                 "width": 72,
                 "height": 72
             }
@@ -135,8 +139,8 @@
             "component": "dom/WriteHtml",
             "metadata": {
                 "label": "dom/WriteHtml",
-                "x": 1440,
-                "y": 108,
+                "x": 1656,
+                "y": 216,
                 "width": 72,
                 "height": 72
             }
@@ -145,46 +149,36 @@
             "component": "dom/GetElement",
             "metadata": {
                 "label": "dom/GetElement",
-                "x": 1332,
-                "y": 180,
+                "x": 1584,
+                "y": 360,
                 "width": 72,
                 "height": 72
             }
         },
-        "core/Kick_ikxjn": {
+        "Win": {
             "component": "core/Kick",
             "metadata": {
-                "label": "core/Kick",
+                "label": "Win",
                 "x": 1008,
                 "y": -36,
                 "width": 72,
                 "height": 72
             }
         },
-        "core/Kick_qpf10": {
+        "TooSmall": {
             "component": "core/Kick",
             "metadata": {
-                "label": "core/Kick",
+                "label": "TooSmall",
                 "x": 1008,
                 "y": 108,
                 "width": 72,
                 "height": 72
             }
         },
-        "core/Merge_fzutk": {
-            "component": "core/Merge",
-            "metadata": {
-                "label": "core/Merge",
-                "x": 1152,
-                "y": 108,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "core/Kick_a12f6": {
+        "TooLarge": {
             "component": "core/Kick",
             "metadata": {
-                "label": "core/Kick",
+                "label": "TooLarge",
                 "x": 1008,
                 "y": 252,
                 "width": 72,
@@ -195,8 +189,8 @@
             "component": "core/Repeat",
             "metadata": {
                 "label": "loadBang",
-                "x": 108,
-                "y": 216,
+                "x": -216,
+                "y": 396,
                 "width": 72,
                 "height": 72
             }
@@ -215,8 +209,88 @@
             "component": "math/Floor",
             "metadata": {
                 "label": "math/Floor",
-                "x": 468,
+                "x": 540,
                 "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_en2e": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "core/Kick",
+                "x": 144,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/SetAttribute_eiofl": {
+            "component": "dom/SetAttribute",
+            "metadata": {
+                "label": "dom/SetAttribute",
+                "x": 288,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_zstrw": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": 144,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_5rdly": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": -252,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "interaction/ListenMouse_xile2": {
+            "component": "interaction/ListenMouse",
+            "metadata": {
+                "label": "interaction/ListenMouse",
+                "x": -144,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Merge_7b9qu": {
+            "component": "core/Merge",
+            "metadata": {
+                "label": "core/Merge",
+                "x": -72,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Merge_q5sla": {
+            "component": "core/Merge",
+            "metadata": {
+                "label": "core/Merge",
+                "x": 1512,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_nnewr": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "core/Kick",
+                "x": 1404,
+                "y": 360,
                 "width": 72,
                 "height": 72
             }
@@ -231,17 +305,6 @@
             "tgt": {
                 "process": "math/Multiply_ckzys",
                 "port": "multiplicand"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "user guess",
-                "port": "element"
-            },
-            "tgt": {
-                "process": "change",
-                "port": "element"
             },
             "metadata": {}
         },
@@ -273,7 +336,7 @@
                 "port": "pass"
             },
             "tgt": {
-                "process": "core/Kick_ikxjn",
+                "process": "Win",
                 "port": "in"
             },
             "metadata": {}
@@ -284,53 +347,7 @@
                 "port": "pass"
             },
             "tgt": {
-                "process": "core/Kick_qpf10",
-                "port": "in"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "core/Kick_ikxjn",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "core/Merge_fzutk",
-                "port": "in"
-            },
-            "metadata": {
-                "route": null
-            }
-        },
-        {
-            "src": {
-                "process": "core/Kick_qpf10",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "core/Merge_fzutk",
-                "port": "in"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "core/Merge_fzutk",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "dom/WriteHtml_71nl6",
-                "port": "html"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "core/Kick_a12f6",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "core/Merge_fzutk",
+                "process": "TooSmall",
                 "port": "in"
             },
             "metadata": {}
@@ -341,7 +358,7 @@
                 "port": "fail"
             },
             "tgt": {
-                "process": "core/Kick_a12f6",
+                "process": "TooLarge",
                 "port": "in"
             },
             "metadata": {}
@@ -371,17 +388,6 @@
             "metadata": {
                 "route": 0
             }
-        },
-        {
-            "src": {
-                "process": "loadBang",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "math/Random_kja0q",
-                "port": "in"
-            },
-            "metadata": {}
         },
         {
             "src": {
@@ -432,17 +438,176 @@
             "metadata": {}
         },
         {
+            "src": {
+                "process": "dom/GetElement_zstrw",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "change",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_5rdly",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "interaction/ListenMouse_xile2",
+                "port": "element"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "interaction/ListenMouse_xile2",
+                "port": "click"
+            },
+            "tgt": {
+                "process": "core/Merge_7b9qu",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "loadBang",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_7b9qu",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Random_kja0q",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Kick_en2e",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "Win",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "core/Merge_q5sla",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_71nl6",
+                "port": "html"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "TooSmall",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "TooLarge",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "core/Kick_nnewr",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Kick_nnewr",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "core/Kick_en2e",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/SetAttribute_eiofl",
+                "port": "value"
+            }
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_zstrw",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/SetAttribute_eiofl",
+                "port": "element"
+            }
+        },
+        {
             "data": 10,
             "tgt": {
                 "process": "math/Multiply_ckzys",
                 "port": "multiplier"
-            }
-        },
-        {
-            "data": "#guess",
-            "tgt": {
-                "process": "user guess",
-                "port": "selector"
             }
         },
         {
@@ -460,27 +625,6 @@
             }
         },
         {
-            "data": "Wow, that is right!",
-            "tgt": {
-                "process": "core/Kick_ikxjn",
-                "port": "data"
-            }
-        },
-        {
-            "data": "The value is too small.",
-            "tgt": {
-                "process": "core/Kick_qpf10",
-                "port": "data"
-            }
-        },
-        {
-            "data": "The value is too large.",
-            "tgt": {
-                "process": "core/Kick_a12f6",
-                "port": "data"
-            }
-        },
-        {
             "data": "start",
             "tgt": {
                 "process": "loadBang",
@@ -492,6 +636,62 @@
             "tgt": {
                 "process": "math/Compare_np714",
                 "port": "operator"
+            }
+        },
+        {
+            "data": "<span style=\"color:green\">Wow, that is right!</span>",
+            "tgt": {
+                "process": "Win",
+                "port": "data"
+            }
+        },
+        {
+            "data": "<span style=\"color:orange\">The value is too small.</span>",
+            "tgt": {
+                "process": "TooSmall",
+                "port": "data"
+            }
+        },
+        {
+            "data": "<span style=\"color:orange\">The value is too large.</span>",
+            "tgt": {
+                "process": "TooLarge",
+                "port": "data"
+            }
+        },
+        {
+            "data": "#guess",
+            "tgt": {
+                "process": "dom/GetElement_zstrw",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "value",
+            "tgt": {
+                "process": "dom/SetAttribute_eiofl",
+                "port": "attribute"
+            }
+        },
+        {
+            "data": "#start",
+            "tgt": {
+                "process": "dom/GetElement_5rdly",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "Enter a number",
+            "tgt": {
+                "process": "core/Kick_nnewr",
+                "port": "data"
+            }
+        },
+        {
+            "data": "?",
+            "tgt": {
+                "process": "core/Kick_en2e",
+                "port": "data"
             }
         }
     ]
