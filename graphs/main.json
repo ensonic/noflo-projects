@@ -1,9 +1,12 @@
 {
     "properties": {
-        "name": "main",
+        "name": "number game",
         "environment": {
-            "type": "noflo-browser"
-        }
+            "type": "noflo-browser",
+            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n</div>"
+        },
+        "description": "Guess a number",
+        "icon": ""
     },
     "inports": {},
     "outports": {},
