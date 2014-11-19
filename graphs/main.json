@@ -12,19 +12,6 @@
     "outports": {},
     "groups": [
         {
-            "name": "logic",
-            "nodes": [
-                "Win",
-                "TooLarge",
-                "TooSmall",
-                "math/Compare_nh7y7",
-                "math/Compare_np714"
-            ],
-            "metadata": {
-                "description": "handle input and generate reply"
-            }
-        },
-        {
             "name": "random",
             "nodes": [
                 "core/Repeat_9sqib",
@@ -34,18 +21,6 @@
             ],
             "metadata": {
                 "description": "Generate a random number"
-            }
-        },
-        {
-            "name": "output",
-            "nodes": [
-                "core/Kick_nnewr",
-                "core/Merge_q5sla",
-                "dom/GetElement_ca2ch",
-                "dom/WriteHtml_71nl6"
-            ],
-            "metadata": {
-                "description": "Handle replies"
             }
         },
         {
@@ -61,16 +36,41 @@
             }
         },
         {
+            "name": "output",
+            "nodes": [
+                "core/Merge_q5sla",
+                "dom/GetElement_ca2ch",
+                "dom/WriteHtml_71nl6",
+                "packets/Map_odh99"
+            ],
+            "metadata": {
+                "description": "Handle replies"
+            }
+        },
+        {
+            "name": "logic",
+            "nodes": [
+                "TooLarge_gcfol",
+                "TooSmall_m2m0x",
+                "Win_48j11",
+                "math/Compare_nh7y7",
+                "math/Compare_np714"
+            ],
+            "metadata": {
+                "description": "check guess and generate reply"
+            }
+        },
+        {
             "name": "input",
             "nodes": [
                 "change",
-                "core/Kick_en2e",
                 "dom/GetElement_zstrw",
                 "dom/SetAttribute_eiofl",
-                "math/Floor_njvuc"
+                "math/Floor_njvuc",
+                "packets/Map_kosbm"
             ],
             "metadata": {
-                "description": "Handle user guesses"
+                "description": "handle user guesses"
             }
         }
     ],
@@ -100,7 +100,7 @@
             "metadata": {
                 "label": "change",
                 "x": 432,
-                "y": -36,
+                "y": -72,
                 "width": 72,
                 "height": 72
             }
@@ -155,36 +155,6 @@
                 "height": 72
             }
         },
-        "Win": {
-            "component": "core/Kick",
-            "metadata": {
-                "label": "Win",
-                "x": 1008,
-                "y": -36,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "TooSmall": {
-            "component": "core/Kick",
-            "metadata": {
-                "label": "TooSmall",
-                "x": 1008,
-                "y": 108,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "TooLarge": {
-            "component": "core/Kick",
-            "metadata": {
-                "label": "TooLarge",
-                "x": 1008,
-                "y": 252,
-                "width": 72,
-                "height": 72
-            }
-        },
         "loadBang": {
             "component": "core/Repeat",
             "metadata": {
@@ -210,17 +180,7 @@
             "metadata": {
                 "label": "math/Floor",
                 "x": 540,
-                "y": 0,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "core/Kick_en2e": {
-            "component": "core/Kick",
-            "metadata": {
-                "label": "core/Kick",
-                "x": 144,
-                "y": 36,
+                "y": -36,
                 "width": 72,
                 "height": 72
             }
@@ -230,7 +190,7 @@
             "metadata": {
                 "label": "dom/SetAttribute",
                 "x": 288,
-                "y": 0,
+                "y": -36,
                 "width": 72,
                 "height": 72
             }
@@ -240,7 +200,7 @@
             "metadata": {
                 "label": "dom/GetElement",
                 "x": 144,
-                "y": -72,
+                "y": -108,
                 "width": 72,
                 "height": 72
             }
@@ -285,12 +245,52 @@
                 "height": 72
             }
         },
-        "core/Kick_nnewr": {
-            "component": "core/Kick",
+        "packets/Map_odh99": {
+            "component": "packets/Map",
             "metadata": {
-                "label": "core/Kick",
+                "label": "packets/Map",
                 "x": 1404,
                 "y": 360,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Win_48j11": {
+            "component": "packets/Map",
+            "metadata": {
+                "label": "Win",
+                "x": 1008,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "TooSmall_m2m0x": {
+            "component": "packets/Map",
+            "metadata": {
+                "label": "TooSmall",
+                "x": 1008,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "TooLarge_gcfol": {
+            "component": "packets/Map",
+            "metadata": {
+                "label": "TooLarge",
+                "x": 1008,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "packets/Map_kosbm": {
+            "component": "packets/Map",
+            "metadata": {
+                "label": "packets/Map",
+                "x": 144,
+                "y": 0,
                 "width": 72,
                 "height": 72
             }
@@ -327,39 +327,6 @@
             "tgt": {
                 "process": "dom/WriteHtml_71nl6",
                 "port": "container"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "math/Compare_np714",
-                "port": "pass"
-            },
-            "tgt": {
-                "process": "Win",
-                "port": "in"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "math/Compare_nh7y7",
-                "port": "pass"
-            },
-            "tgt": {
-                "process": "TooSmall",
-                "port": "in"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "math/Compare_nh7y7",
-                "port": "fail"
-            },
-            "tgt": {
-                "process": "TooLarge",
-                "port": "in"
             },
             "metadata": {}
         },
@@ -498,32 +465,6 @@
         },
         {
             "src": {
-                "process": "core/Merge_7b9qu",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "core/Kick_en2e",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 0
-            }
-        },
-        {
-            "src": {
-                "process": "Win",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "core/Merge_q5sla",
-                "port": "in"
-            },
-            "metadata": {
-                "route": null
-            }
-        },
-        {
-            "src": {
                 "process": "core/Merge_q5sla",
                 "port": "out"
             },
@@ -535,34 +476,18 @@
         },
         {
             "src": {
-                "process": "TooSmall",
-                "port": "out"
+                "process": "dom/GetElement_zstrw",
+                "port": "element"
             },
             "tgt": {
-                "process": "core/Merge_q5sla",
-                "port": "in"
-            },
-            "metadata": {
-                "route": null
+                "process": "dom/SetAttribute_eiofl",
+                "port": "element"
             }
         },
         {
             "src": {
-                "process": "TooLarge",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "core/Merge_q5sla",
-                "port": "in"
-            },
-            "metadata": {
-                "route": null
-            }
-        },
-        {
-            "src": {
-                "process": "core/Kick_nnewr",
-                "port": "out"
+                "process": "packets/Map_odh99",
+                "port": "data"
             },
             "tgt": {
                 "process": "core/Merge_q5sla",
@@ -576,8 +501,8 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "core/Kick_nnewr",
-                "port": "in"
+                "process": "packets/Map_odh99",
+                "port": "data"
             },
             "metadata": {
                 "route": 0
@@ -585,23 +510,99 @@
         },
         {
             "src": {
-                "process": "core/Kick_en2e",
-                "port": "out"
+                "process": "math/Compare_np714",
+                "port": "pass"
             },
             "tgt": {
-                "process": "dom/SetAttribute_eiofl",
-                "port": "value"
+                "process": "Win_48j11",
+                "port": "data"
+            },
+            "metadata": {
+                "route": null
             }
         },
         {
             "src": {
-                "process": "dom/GetElement_zstrw",
-                "port": "element"
+                "process": "Win_48j11",
+                "port": "data"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_nh7y7",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "TooSmall_m2m0x",
+                "port": "data"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "TooSmall_m2m0x",
+                "port": "data"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_nh7y7",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "TooLarge_gcfol",
+                "port": "data"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "TooLarge_gcfol",
+                "port": "data"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "packets/Map_kosbm",
+                "port": "data"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "packets/Map_kosbm",
+                "port": "data"
             },
             "tgt": {
                 "process": "dom/SetAttribute_eiofl",
-                "port": "element"
-            }
+                "port": "value"
+            },
+            "metadata": {}
         },
         {
             "data": 10,
@@ -639,30 +640,16 @@
             }
         },
         {
-            "data": "<span style=\"color:green\">Wow, that is right!</span>",
-            "tgt": {
-                "process": "Win",
-                "port": "data"
-            }
-        },
-        {
-            "data": "<span style=\"color:orange\">The value is too small.</span>",
-            "tgt": {
-                "process": "TooSmall",
-                "port": "data"
-            }
-        },
-        {
-            "data": "<span style=\"color:orange\">The value is too large.</span>",
-            "tgt": {
-                "process": "TooLarge",
-                "port": "data"
-            }
-        },
-        {
             "data": "#guess",
             "tgt": {
                 "process": "dom/GetElement_zstrw",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#start",
+            "tgt": {
+                "process": "dom/GetElement_5rdly",
                 "port": "selector"
             }
         },
@@ -674,24 +661,73 @@
             }
         },
         {
-            "data": "#start",
+            "data": "Enter a number",
             "tgt": {
-                "process": "dom/GetElement_5rdly",
-                "port": "selector"
+                "process": "packets/Map_odh99",
+                "port": "def"
             }
         },
         {
-            "data": "Enter a number",
+            "data": "<span style=\"color:green\">Wow, that is right!</span>",
             "tgt": {
-                "process": "core/Kick_nnewr",
-                "port": "data"
+                "process": "Win_48j11",
+                "port": "def"
+            }
+        },
+        {
+            "data": "<span style=\"color:orange\">The value is too small.</span>",
+            "tgt": {
+                "process": "TooSmall_m2m0x",
+                "port": "def"
+            }
+        },
+        {
+            "data": "<span style=\"color:orange\">The value is too large.</span>",
+            "tgt": {
+                "process": "TooLarge_gcfol",
+                "port": "def"
+            }
+        },
+        {
+            "data": "{}",
+            "tgt": {
+                "process": "packets/Map_odh99",
+                "port": "map"
+            }
+        },
+        {
+            "data": "{}",
+            "tgt": {
+                "process": "TooLarge_gcfol",
+                "port": "map"
+            }
+        },
+        {
+            "data": "{}",
+            "tgt": {
+                "process": "TooSmall_m2m0x",
+                "port": "map"
+            }
+        },
+        {
+            "data": "{}",
+            "tgt": {
+                "process": "Win_48j11",
+                "port": "map"
             }
         },
         {
             "data": "?",
             "tgt": {
-                "process": "core/Kick_en2e",
-                "port": "data"
+                "process": "packets/Map_kosbm",
+                "port": "def"
+            }
+        },
+        {
+            "data": "{}",
+            "tgt": {
+                "process": "packets/Map_kosbm",
+                "port": "map"
             }
         }
     ]
