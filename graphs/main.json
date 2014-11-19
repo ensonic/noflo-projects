@@ -67,7 +67,7 @@
                 "change",
                 "dom/GetElement_zstrw",
                 "dom/SetAttribute_eiofl",
-                "math/Floor_njvuc"
+                "toNumber"
             ],
             "metadata": {
                 "description": "handle user guesses"
@@ -171,16 +171,6 @@
                 "label": "math/Floor",
                 "x": 432,
                 "y": 216,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "math/Floor_njvuc": {
-            "component": "math/Floor",
-            "metadata": {
-                "label": "math/Floor",
-                "x": 576,
-                "y": -36,
                 "width": 72,
                 "height": 72
             }
@@ -294,6 +284,16 @@
                 "width": 72,
                 "height": 72
             }
+        },
+        "toNumber": {
+            "component": "strings/ParseInt",
+            "metadata": {
+                "label": "toNumber",
+                "x": 576,
+                "y": -36,
+                "width": 72,
+                "height": 72
+            }
         }
     },
     "connections": [
@@ -377,30 +377,6 @@
             "tgt": {
                 "process": "core/Repeat_9sqib",
                 "port": "in"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "change",
-                "port": "value"
-            },
-            "tgt": {
-                "process": "math/Floor_njvuc",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 0
-            }
-        },
-        {
-            "src": {
-                "process": "math/Floor_njvuc",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "math/Compare_np714",
-                "port": "value"
             },
             "metadata": {}
         },
@@ -605,6 +581,28 @@
             "metadata": {}
         },
         {
+            "src": {
+                "process": "toNumber",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Compare_np714",
+                "port": "value"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "change",
+                "port": "value"
+            },
+            "tgt": {
+                "process": "toNumber",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
             "data": 10,
             "tgt": {
                 "process": "math/Multiply_ckzys",
@@ -693,6 +691,13 @@
             "tgt": {
                 "process": "Init_bm2z5",
                 "port": "string"
+            }
+        },
+        {
+            "data": 10,
+            "tgt": {
+                "process": "toNumber",
+                "port": "base"
             }
         }
     ]
