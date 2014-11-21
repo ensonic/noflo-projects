@@ -3,7 +3,7 @@
         "name": "main",
         "environment": {
             "type": "noflo-browser",
-            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  <center>\n    <p>Guess a number between 1-10</p>\n    <input id=\"guess\" type=\"text\" value=\"?\" autofocus=true onfocus=\"this.setSelectionRange(0, this.value.length)\"></input><br>\n    <p><div id=\"reply\"></div></p>\n    <button id=\"start\">New Game</button>\n  </center>\n</div>"
+            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  <center>\n    <p>Guess a number between 1-10</p>\n    <input id=\"guess\" type=\"text\" value=\"?\" autofocus=true onfocus=\"this.setSelectionRange(0, this.value.length)\"></input><br>\n    <p><div id=\"reply\">&#160;</div></p>\n    <button id=\"start\" onclick=\"document.getElementsById('guess').focus()\">New Game</button>\n    <hr>\n  </center>\n  <p>Attempts: <span id=\"attempt\">0</span></p>\n</div>"
         },
         "description": "Guess a number",
         "icon": ""
@@ -71,6 +71,17 @@
             ],
             "metadata": {
                 "description": "handle user guesses"
+            }
+        },
+        {
+            "name": "counter",
+            "nodes": [
+                "math/Accumulate_96bqf",
+                "strings/ParseInt_jdqu5",
+                "strings/SendString_91001"
+            ],
+            "metadata": {
+                "description": "track number of attempts"
             }
         }
     ],
@@ -220,7 +231,7 @@
             "metadata": {
                 "label": "core/Merge",
                 "x": 0,
-                "y": 396,
+                "y": 360,
                 "width": 72,
                 "height": 72
             }
@@ -289,18 +300,68 @@
             "component": "strings/ParseInt",
             "metadata": {
                 "label": "toNumber",
-                "x": 576,
+                "x": 612,
                 "y": -36,
                 "width": 72,
                 "height": 72
             }
         },
-        "strings/SendString_syljb": {
+        "Init_nwgvq": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "Init",
+                "x": 36,
+                "y": -108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Accumulate_96bqf": {
+            "component": "math/Accumulate",
+            "metadata": {
+                "label": "math/Accumulate",
+                "x": 1044,
+                "y": 576,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "strings/SendString_91001": {
             "component": "strings/SendString",
             "metadata": {
                 "label": "strings/SendString",
-                "x": 0,
-                "y": -72,
+                "x": 792,
+                "y": 468,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_rg68d": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": 1440,
+                "y": 540,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/WriteHtml_26h5i": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "dom/WriteHtml",
+                "x": 1584,
+                "y": 468,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "strings/ParseInt_jdqu5": {
+            "component": "strings/ParseInt",
+            "metadata": {
+                "label": "toNumber",
+                "x": 936,
+                "y": 432,
                 "width": 72,
                 "height": 72
             }
@@ -599,14 +660,26 @@
         },
         {
             "src": {
-                "process": "strings/SendString_syljb",
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Init_nwgvq",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "Init_nwgvq",
                 "port": "out"
             },
             "tgt": {
                 "process": "dom/GetElement_zstrw",
                 "port": "selector"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -614,12 +687,69 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "strings/SendString_syljb",
+                "process": "math/Accumulate_96bqf",
+                "port": "reset"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "toNumber",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "strings/SendString_91001",
                 "port": "in"
             },
             "metadata": {
                 "route": 0
             }
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_rg68d",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_26h5i",
+                "port": "container"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Accumulate_96bqf",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_26h5i",
+                "port": "html"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "strings/SendString_91001",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "strings/ParseInt_jdqu5",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "strings/ParseInt_jdqu5",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Accumulate_96bqf",
+                "port": "in"
+            },
+            "metadata": {}
         },
         {
             "data": 10,
@@ -715,8 +845,36 @@
         {
             "data": "#guess",
             "tgt": {
-                "process": "strings/SendString_syljb",
+                "process": "Init_nwgvq",
                 "port": "string"
+            }
+        },
+        {
+            "data": "1",
+            "tgt": {
+                "process": "strings/SendString_91001",
+                "port": "string"
+            }
+        },
+        {
+            "data": "#attempt",
+            "tgt": {
+                "process": "dom/GetElement_rg68d",
+                "port": "selector"
+            }
+        },
+        {
+            "data": true,
+            "tgt": {
+                "process": "math/Accumulate_96bqf",
+                "port": "emitreset"
+            }
+        },
+        {
+            "data": 10,
+            "tgt": {
+                "process": "strings/ParseInt_jdqu5",
+                "port": "base"
             }
         }
     ]
