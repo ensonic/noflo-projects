@@ -1,9 +1,9 @@
 {
     "properties": {
-        "name": "number game",
+        "name": "main",
         "environment": {
             "type": "noflo-browser",
-            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  <center>\n    <p>Guess a number between 1-10</p>\n    <input id=\"guess\" type=\"text\" min=\"1\" max=\"10\" value=\"?\" autofocus=true></input><br>\n    <p><div id=\"reply\"></div></p>\n    <button id=\"start\">New Game</button>\n  </center>\n</div>"
+            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  <center>\n    <p>Guess a number between 1-10</p>\n    <input id=\"guess\" type=\"text\" value=\"?\" autofocus=true onfocus=\"this.setSelectionRange(0, this.value.length)\"></input><br>\n    <p><div id=\"reply\"></div></p>\n    <button id=\"start\">New Game</button>\n  </center>\n</div>"
         },
         "description": "Guess a number",
         "icon": ""
@@ -219,7 +219,7 @@
             "component": "core/Merge",
             "metadata": {
                 "label": "core/Merge",
-                "x": -36,
+                "x": 0,
                 "y": 396,
                 "width": 72,
                 "height": 72
@@ -294,6 +294,16 @@
                 "width": 72,
                 "height": 72
             }
+        },
+        "strings/SendString_syljb": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "strings/SendString",
+                "x": 0,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
         }
     },
     "connections": [
@@ -305,8 +315,7 @@
             "tgt": {
                 "process": "math/Multiply_ckzys",
                 "port": "multiplicand"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -316,8 +325,7 @@
             "tgt": {
                 "process": "math/Compare_np714",
                 "port": "comparison"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -327,8 +335,7 @@
             "tgt": {
                 "process": "dom/WriteHtml_71nl6",
                 "port": "container"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -377,8 +384,7 @@
             "tgt": {
                 "process": "core/Repeat_9sqib",
                 "port": "in"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -401,8 +407,7 @@
             "tgt": {
                 "process": "interaction/ListenMouse_xile2",
                 "port": "element"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -412,8 +417,7 @@
             "tgt": {
                 "process": "core/Merge_7b9qu",
                 "port": "in"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -436,8 +440,7 @@
             "tgt": {
                 "process": "math/Random_kja0q",
                 "port": "in"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -447,8 +450,7 @@
             "tgt": {
                 "process": "dom/WriteHtml_71nl6",
                 "port": "html"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -481,8 +483,7 @@
             "tgt": {
                 "process": "core/Merge_q5sla",
                 "port": "in"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -505,8 +506,7 @@
             "tgt": {
                 "process": "core/Merge_q5sla",
                 "port": "in"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -529,8 +529,7 @@
             "tgt": {
                 "process": "core/Merge_q5sla",
                 "port": "in"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -553,8 +552,7 @@
             "tgt": {
                 "process": "core/Merge_q5sla",
                 "port": "in"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -577,8 +575,7 @@
             "tgt": {
                 "process": "dom/SetAttribute_eiofl",
                 "port": "value"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -588,8 +585,7 @@
             "tgt": {
                 "process": "math/Compare_np714",
                 "port": "value"
-            },
-            "metadata": {}
+            }
         },
         {
             "src": {
@@ -599,8 +595,31 @@
             "tgt": {
                 "process": "toNumber",
                 "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "strings/SendString_syljb",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/GetElement_zstrw",
+                "port": "selector"
             },
             "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "strings/SendString_syljb",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
         },
         {
             "data": 10,
@@ -635,13 +654,6 @@
             "tgt": {
                 "process": "math/Compare_np714",
                 "port": "operator"
-            }
-        },
-        {
-            "data": "#guess",
-            "tgt": {
-                "process": "dom/GetElement_zstrw",
-                "port": "selector"
             }
         },
         {
@@ -698,6 +710,13 @@
             "tgt": {
                 "process": "toNumber",
                 "port": "base"
+            }
+        },
+        {
+            "data": "#guess",
+            "tgt": {
+                "process": "strings/SendString_syljb",
+                "port": "string"
             }
         }
     ]
