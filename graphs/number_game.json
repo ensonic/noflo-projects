@@ -1,0 +1,704 @@
+{
+    "properties": {
+        "name": "number game",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<div class='area' title='.area'>\n  <h1>Guess a number</h1>\n  <center>\n    <p>Guess a number between 1-10</p>\n    <input id=\"guess\" type=\"text\" min=\"1\" max=\"10\" value=\"?\" autofocus=true></input><br>\n    <p><div id=\"reply\"></div></p>\n    <button id=\"start\">New Game</button>\n  </center>\n</div>"
+        },
+        "description": "Guess a number",
+        "icon": ""
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [
+        {
+            "name": "random",
+            "nodes": [
+                "core/Repeat_9sqib",
+                "math/Floor_sv4a7",
+                "math/Multiply_ckzys",
+                "math/Random_kja0q"
+            ],
+            "metadata": {
+                "description": "Generate a random number"
+            }
+        },
+        {
+            "name": "Init",
+            "nodes": [
+                "core/Merge_7b9qu",
+                "dom/GetElement_5rdly",
+                "interaction/ListenMouse_xile2",
+                "loadBang"
+            ],
+            "metadata": {
+                "description": "Start a game"
+            }
+        },
+        {
+            "name": "logic",
+            "nodes": [
+                "TooLarge",
+                "TooSmall",
+                "Win",
+                "math/Compare_nh7y7",
+                "math/Compare_np714"
+            ],
+            "metadata": {
+                "description": "check guess and generate reply"
+            }
+        },
+        {
+            "name": "output",
+            "nodes": [
+                "core/Merge_q5sla",
+                "dom/GetElement_ca2ch",
+                "dom/WriteHtml_71nl6",
+                "Init"
+            ],
+            "metadata": {
+                "description": "handle reply"
+            }
+        },
+        {
+            "name": "input",
+            "nodes": [
+                "Init_bm2z5",
+                "change",
+                "dom/GetElement_zstrw",
+                "dom/SetAttribute_eiofl",
+                "toNumber"
+            ],
+            "metadata": {
+                "description": "handle user guesses"
+            }
+        }
+    ],
+    "processes": {
+        "math/Random_kja0q": {
+            "component": "math/Random",
+            "metadata": {
+                "label": "math/Random",
+                "x": 216,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Multiply_ckzys": {
+            "component": "math/Multiply",
+            "metadata": {
+                "label": "math/Multiply",
+                "x": 324,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "change": {
+            "component": "interaction/ListenChange",
+            "metadata": {
+                "label": "change",
+                "x": 468,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Repeat_9sqib": {
+            "component": "core/Repeat",
+            "metadata": {
+                "label": "core/Repeat",
+                "x": 540,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Compare_np714": {
+            "component": "math/Compare",
+            "metadata": {
+                "label": "math/Compare",
+                "x": 792,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Compare_nh7y7": {
+            "component": "math/Compare",
+            "metadata": {
+                "label": "math/Compare",
+                "x": 900,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/WriteHtml_71nl6": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "dom/WriteHtml",
+                "x": 1584,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_ca2ch": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": 1476,
+                "y": 324,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "loadBang": {
+            "component": "core/Repeat",
+            "metadata": {
+                "label": "loadBang",
+                "x": -216,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "math/Floor_sv4a7": {
+            "component": "math/Floor",
+            "metadata": {
+                "label": "math/Floor",
+                "x": 432,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/SetAttribute_eiofl": {
+            "component": "dom/SetAttribute",
+            "metadata": {
+                "label": "dom/SetAttribute",
+                "x": 324,
+                "y": -36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_zstrw": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": 180,
+                "y": -108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_5rdly": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": -252,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "interaction/ListenMouse_xile2": {
+            "component": "interaction/ListenMouse",
+            "metadata": {
+                "label": "interaction/ListenMouse",
+                "x": -144,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Merge_7b9qu": {
+            "component": "core/Merge",
+            "metadata": {
+                "label": "core/Merge",
+                "x": -36,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Merge_q5sla": {
+            "component": "core/Merge",
+            "metadata": {
+                "label": "core/Merge",
+                "x": 1476,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Win": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "Win",
+                "x": 1044,
+                "y": -36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "TooSmall": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "TooSmall",
+                "x": 1044,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "TooLarge": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "TooLarge",
+                "x": 1044,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Init": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "Init",
+                "x": 1368,
+                "y": 324,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Init_bm2z5": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "Init",
+                "x": 180,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "toNumber": {
+            "component": "strings/ParseInt",
+            "metadata": {
+                "label": "toNumber",
+                "x": 576,
+                "y": -36,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "math/Random_kja0q",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Multiply_ckzys",
+                "port": "multiplicand"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Repeat_9sqib",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Compare_np714",
+                "port": "comparison"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_ca2ch",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_71nl6",
+                "port": "container"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_np714",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "value"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "core/Repeat_9sqib",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "comparison"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "math/Multiply_ckzys",
+                "port": "product"
+            },
+            "tgt": {
+                "process": "math/Floor_sv4a7",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "math/Floor_sv4a7",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Repeat_9sqib",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_zstrw",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "change",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_5rdly",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "interaction/ListenMouse_xile2",
+                "port": "element"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "interaction/ListenMouse_xile2",
+                "port": "click"
+            },
+            "tgt": {
+                "process": "core/Merge_7b9qu",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "loadBang",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_7b9qu",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Random_kja0q",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_q5sla",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_71nl6",
+                "port": "html"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_zstrw",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/SetAttribute_eiofl",
+                "port": "element"
+            }
+        },
+        {
+            "src": {
+                "process": "math/Compare_np714",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "Win",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "Win",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_nh7y7",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "TooSmall",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "TooSmall",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "math/Compare_nh7y7",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "TooLarge",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "TooLarge",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Init",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "Init",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Merge_q5sla",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "core/Merge_7b9qu",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Init_bm2z5",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "Init_bm2z5",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/SetAttribute_eiofl",
+                "port": "value"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "toNumber",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "math/Compare_np714",
+                "port": "value"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "change",
+                "port": "value"
+            },
+            "tgt": {
+                "process": "toNumber",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "data": 10,
+            "tgt": {
+                "process": "math/Multiply_ckzys",
+                "port": "multiplier"
+            }
+        },
+        {
+            "data": "<",
+            "tgt": {
+                "process": "math/Compare_nh7y7",
+                "port": "operator"
+            }
+        },
+        {
+            "data": "#reply",
+            "tgt": {
+                "process": "dom/GetElement_ca2ch",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "start",
+            "tgt": {
+                "process": "loadBang",
+                "port": "in"
+            }
+        },
+        {
+            "data": "==",
+            "tgt": {
+                "process": "math/Compare_np714",
+                "port": "operator"
+            }
+        },
+        {
+            "data": "#guess",
+            "tgt": {
+                "process": "dom/GetElement_zstrw",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#start",
+            "tgt": {
+                "process": "dom/GetElement_5rdly",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "value",
+            "tgt": {
+                "process": "dom/SetAttribute_eiofl",
+                "port": "attribute"
+            }
+        },
+        {
+            "data": "<span style=\"color:green\">Wow, that is right!</span>",
+            "tgt": {
+                "process": "Win",
+                "port": "string"
+            }
+        },
+        {
+            "data": "<span style=\"color:orange\">The value is too small.</span>",
+            "tgt": {
+                "process": "TooSmall",
+                "port": "string"
+            }
+        },
+        {
+            "data": "<span style=\"color:orange\">The value is too large.</span>",
+            "tgt": {
+                "process": "TooLarge",
+                "port": "string"
+            }
+        },
+        {
+            "data": "Enter a number",
+            "tgt": {
+                "process": "Init",
+                "port": "string"
+            }
+        },
+        {
+            "data": "?",
+            "tgt": {
+                "process": "Init_bm2z5",
+                "port": "string"
+            }
+        },
+        {
+            "data": 10,
+            "tgt": {
+                "process": "toNumber",
+                "port": "base"
+            }
+        }
+    ]
+}
